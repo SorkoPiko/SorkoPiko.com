@@ -1,6 +1,14 @@
 {
 	"projects": [
 		{
+			"name": "Geode Mods",
+			"description": "A collection of mods for Geometry Dash. Mainly QoL and utility mods.",
+			"startTimestamp": 1721280660,
+			"endTimestamp": 1732249980,
+			"status": "Finished",
+			"link": "https://geode-sdk.org/mods?developer=sorkopiko"
+		},
+		{
 			"name": "GDSW-API",
 			"description": "A simple API for the GD Secret Way Mod. Written in Python using FastAPI.",
 			"startTimestamp": 1721260800,
