@@ -21,10 +21,10 @@ export const CustomNavbar = () => {
 	const pathname = usePathname ();
 
 	return (
-		<Navbar height="100" shouldHideOnScroll isBordered>
+		<Navbar className="h-24" isBordered>
 			<NavbarBrand>
 				<Logo size="100" />
-				<p className="font-bold text-inherit text-2xl">SorkoPiko</p>
+				<p className="font-bold text-inherit text-2xl ml-4">SorkoPiko</p>
 			</NavbarBrand>
 			<NavbarContent className="hidden sm:flex gap-4" justify="center">
 				{navItems.map((item) => {

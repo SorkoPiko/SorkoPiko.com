@@ -14,11 +14,12 @@
     "@vercel/analytics": "^1.3.1",
     "framer-motion": "^11.0.14",
     "keen-slider": "^6.8.6",
-    "next": "^14.1.4",
+    "next": "^15.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-simple-typewriter": "^5.0.1",
     "react-social-icons": "^6.15.0",
+    "sorkopiko-site": "file:",
     "tsparticles": "^3.3.0",
     "typewriter-effect": "^2.21.0"
   },

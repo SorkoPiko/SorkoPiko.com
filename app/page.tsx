@@ -20,18 +20,17 @@ export default function Main() {
 				<h1 className="text-5xl">
 					<Typewriter
 						words={[
-							"python developer",
-							"java developer",
-							"unity developer",
-							"web developer",
-							"discord bot developer",
+							"c++ dev",
+							"wiki contributor",
+							"web dev",
+							"discord bot dev",
 							"open source contributor",
-							"geode mod developer",
-							"api developer"
+							"geode mod dev"
 						]}
 						loop={0}
 						cursor={true}
 						cursorStyle="_"
+						typeSpeed={70}
 						deleteSpeed={35}
 					/>
 				</h1>
