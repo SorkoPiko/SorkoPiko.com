@@ -2,8 +2,6 @@ import Image from "next/image";
 
 export type Badge = {
 	src: string;
-	height: number;
-	width: number;
 	alt: string;
 };
 
