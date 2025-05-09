@@ -1,6 +1,13 @@
 {
 	"projects": [
 		{
+			"name": "SendDB",
+			"description": "A Discord bot that allows you to track Geometry Dash level sends. Comes with many leaderboards and features like DM notifications.",
+			"startTimestamp": 1704700140,
+			"status": "Ongoing",
+			"link": "https://discord.gg/MeWY462WJv"
+		},
+		{
 			"name": "Geode Mods",
 			"description": "A collection of mods for Geometry Dash. Mainly QoL and utility mods.",
 			"startTimestamp": 1721280660,
