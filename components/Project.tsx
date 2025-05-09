@@ -90,12 +90,18 @@ export const Project = ({
 					)}
 
 					{extra && (
-						<Image
-							height={extra.height}
-							width={extra.width}
-							src={extra.src}
-							alt={extra.alt}
-						/>
+						<div className="flex items-center">
+							<Image
+								height={0}
+								width={0}
+								src={extra.src}
+								alt={extra.alt}
+								style={{
+									width: "auto",
+									height: "auto"
+								}}
+							/>
+						</div>
 					)}
 				</div>
 				<p className="text-sm leading-1">{description}</p>

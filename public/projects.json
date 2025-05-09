@@ -5,7 +5,11 @@
 			"description": "A Discord bot that allows you to track Geometry Dash level sends. Comes with many leaderboards and features like DM notifications.",
 			"startTimestamp": 1736322540,
 			"status": "Ongoing",
-			"link": "https://discord.gg/MeWY462WJv"
+			"link": "https://discord.gg/MeWY462WJv",
+			"extra": {
+				"src": "https://wakatime.com/badge/github/SorkoPiko/SendDB.svg",
+				"alt": "wakatime"
+			}
 		},
 		{
 			"name": "Geode Mods",
@@ -22,8 +26,6 @@
 			"status": "Finished",
 			"link": "https://github.com/SorkoPiko/GDSW-API",
 			"extra": {
-				"height": 20,
-				"width": 161,
 				"src": "https://wakatime.com/badge/github/SorkoPiko/GDSW-API.svg",
 				"alt": "wakatime"
 			}
@@ -35,8 +37,6 @@
 			"status": "Finished",
 			"link": "https://github.com/SorkoPiko/SorkoPikoSite",
 			"extra": {
-				"height": 20,
-				"width": 173,
 				"src": "https://wakatime.com/badge/github/SorkoPiko/SorkoPikoSite.svg",
 				"alt": "wakatime"
 			}
@@ -47,8 +47,6 @@
 			"startTimestamp": 1704067200,
 			"status": "Ongoing",
 			"extra": {
-				"height": 20,
-				"width": 166,
 				"src": "https://wakatime.com/badge/github/SorkoPiko/PikopianEmpireBot.svg",
 				"alt": "wakatime"
 			}
@@ -65,8 +63,6 @@
 			"startTimestamp": 1706745600,
 			"status": "Ongoing",
 			"extra": {
-				"height": 20,
-				"width": 173,
 				"src": "https://wakatime.com/badge/user/16aa5e7e-a470-4b0c-9ed4-25e656d300a4/project/018db40b-67aa-495f-883a-6cdfe5705ee3.svg",
 				"alt": "wakatime"
 			}
@@ -77,27 +73,6 @@
 			"startTimestamp": 1696122000,
 			"status": "Abandoned",
 			"link": "https://github.com/SorkoPiko/BallsdexUtils"
-		},
-		{
-			"name": "BetterBlooket",
-			"description": "Blooket client with extra features and plugin support. Abanonded due to cease and desist.",
-			"startTimestamp": 1685581200,
-			"endTimestamp": 1690851600,
-			"status": "Abandoned",
-			"link": "https://github.com/SorkoPiko/BetterBlooket-Releases"
-		},
-		{
-			"name": "Pirate Pufferfish",
-			"description": "A Discord bot that allows you to manage your Blooket account through Discord.",
-			"startTimestamp": 1680307200,
-			"status": "Abandoned"
-		},
-		{
-			"name": "Blooket-Cheats",
-			"description": "Blooket cheats repository. Has been taken down many times due to cease and desist.",
-			"startTimestamp": 1672491600,
-			"status": "Ongoing",
-			"link": "https://gitlab.com/blooket/blooket-cheats"
 		},
 		{
 			"name": "goldenCookieSettings",
