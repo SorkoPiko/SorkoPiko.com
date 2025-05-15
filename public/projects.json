@@ -1,6 +1,13 @@
 {
 	"projects": [
 		{
+			"name": "Thronefall Wiki",
+			"description": "A wiki for the game Thronefall. Created because the official wiki was outdated and incomplete.",
+			"startTimestamp": 1746513600,
+			"status": "Ongoing",
+			"link": "https://thronefall.wiki"
+		},
+		{
 			"name": "SendDB",
 			"description": "A Discord bot that allows you to track Geometry Dash level sends. Comes with many leaderboards and features like DM notifications.",
 			"startTimestamp": 1736322540,
