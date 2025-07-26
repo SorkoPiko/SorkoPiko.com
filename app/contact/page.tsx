@@ -23,7 +23,6 @@ export default function Contact() {
 					<SocialIcon target="_blank" url="https://x.com/SorkoPiko" />
 					<SocialIcon target="_blank" url="https://reddit.com/user/SorkoPiko" />
 					<SocialIcon target="_blank" url="https://twitch.tv/SorkoPiko" />
-					<SocialIcon target="_blank" url="https://au.linkedin.com/in/SorkoPiko" />
 				</div>
 				<p className="w-96 text-center">I am most active on Discord. If you wish to contact me, send me a friend request, and I will respond as soon as possible.</p>
 			</div>
