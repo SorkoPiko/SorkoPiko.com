@@ -26,7 +26,8 @@ export default async function Home() {
 						width={beatline.image.width}
 						height={beatline.image.height}
 						alt={beatline.image.alt}
-						sizes="(max-width: 640px) 100vw, 600px"
+						sizes="(max-width: 680px) calc(100vw - 3rem), 610px"
+						quality={90}
 						priority
 					/>
 					<div className="feature-body">

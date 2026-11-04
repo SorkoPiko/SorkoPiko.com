@@ -38,7 +38,7 @@ export const beatline: Game = {
 	pitch: "RHYTHM // PARKOUR",
 	status: "coming-soon",
 	image: {
-		src: "/beatline-banner.jpg",
+		src: "/beatline-banner.png",
 		width: 1600,
 		height: 800,
 		alt: "The glowing cyan Beatline logo and \"Rhythm // Parkour\" above a wireframe globe ringed by a parkour track on a neon grid, between orange light pillars.",
