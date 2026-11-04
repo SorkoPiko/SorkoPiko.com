@@ -132,6 +132,51 @@ function compile(gl: WebGLRenderingContext, type: number, source: string): WebGL
 	return shader;
 }
 
+interface Scene {
+	program: WebGLProgram;
+	buffer: WebGLBuffer | null;
+	shaders: WebGLShader[];
+	uTime: WebGLUniformLocation | null;
+	uResolution: WebGLUniformLocation | null;
+	uScale: WebGLUniformLocation | null;
+}
+
+/** Compile the program and upload the fullscreen triangle. Needed again after a context loss. */
+function createScene(gl: WebGLRenderingContext): Scene | null {
+	const vs = compile(gl, gl.VERTEX_SHADER, VERTEX_SHADER);
+	const fs = compile(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER);
+	const program = gl.createProgram();
+	if (!vs || !fs || !program) return null;
+	gl.attachShader(program, vs);
+	gl.attachShader(program, fs);
+	gl.linkProgram(program);
+	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return null;
+	gl.useProgram(program);
+
+	// One triangle covering the whole viewport
+	const buffer = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+	const position = gl.getAttribLocation(program, "position");
+	gl.enableVertexAttribArray(position);
+	gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+	return {
+		program,
+		buffer,
+		shaders: [vs, fs],
+		uTime: gl.getUniformLocation(program, "iTime"),
+		uResolution: gl.getUniformLocation(program, "iResolution"),
+		uScale: gl.getUniformLocation(program, "iScale"),
+	};
+}
+
+function destroyScene(gl: WebGLRenderingContext, scene: Scene) {
+	gl.deleteBuffer(scene.buffer);
+	gl.deleteProgram(scene.program);
+	for (const shader of scene.shaders) gl.deleteShader(shader);
+}
+
 export function Background() {
 	const containerRef = useRef<HTMLDivElement>(null);
 
@@ -143,9 +188,9 @@ export function Background() {
 		const canvas = document.createElement("canvas");
 		container.appendChild(canvas);
 
-		let gl: WebGLRenderingContext | null = null;
+		let context: WebGLRenderingContext | null = null;
 		try {
-			gl = canvas.getContext("webgl", {
+			context = canvas.getContext("webgl", {
 				alpha: false,
 				antialias: false,
 				depth: false,
@@ -153,50 +198,26 @@ export function Background() {
 				powerPreference: "low-power",
 			}) as WebGLRenderingContext | null;
 		} catch {
-			gl = null;
+			context = null;
 		}
-		if (!gl) {
-			// The body background (#111111) shows through
+		let scene = context && createScene(context);
+		if (!context || !scene) {
+			// The container's backdrop colour shows instead
 			canvas.remove();
 			return;
 		}
-
-		const vs = compile(gl, gl.VERTEX_SHADER, VERTEX_SHADER);
-		const fs = compile(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER);
-		const program = gl.createProgram();
-		if (!vs || !fs || !program) {
-			canvas.remove();
-			return;
-		}
-		gl.attachShader(program, vs);
-		gl.attachShader(program, fs);
-		gl.linkProgram(program);
-		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-			canvas.remove();
-			return;
-		}
-		gl.useProgram(program);
-
-		// One triangle covering the whole viewport
-		const buffer = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-		const position = gl.getAttribLocation(program, "position");
-		gl.enableVertexAttribArray(position);
-		gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
-
-		const uTime = gl.getUniformLocation(program, "iTime");
-		const uResolution = gl.getUniformLocation(program, "iResolution");
-		const uScale = gl.getUniformLocation(program, "iScale");
+		const gl = context;
 
 		const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 		// Start somewhere in the middle of the loop rather than at t=0
 		const timeOffset = 40;
 		const start = performance.now();
 		let raf = 0;
+		let resizeRaf = 0;
 		let last = 0;
 
 		const resize = () => {
+			if (!scene) return;
 			const scale = (window.devicePixelRatio || 1) * RESOLUTION_SCALE;
 			const width = Math.max(1, Math.round(canvas.clientWidth * scale));
 			const height = Math.max(1, Math.round(canvas.clientHeight * scale));
@@ -204,14 +225,15 @@ export function Background() {
 				canvas.width = width;
 				canvas.height = height;
 			}
-			gl!.viewport(0, 0, width, height);
-			gl!.uniform2f(uResolution, width, height);
-			gl!.uniform1f(uScale, scale);
+			gl.viewport(0, 0, width, height);
+			gl.uniform2f(scene.uResolution, width, height);
+			gl.uniform1f(scene.uScale, scale);
 		};
 
 		const draw = (now: number) => {
-			gl!.uniform1f(uTime, timeOffset + (now - start) / 1000);
-			gl!.drawArrays(gl!.TRIANGLES, 0, 3);
+			if (!scene) return;
+			gl.uniform1f(scene.uTime, timeOffset + (now - start) / 1000);
+			gl.drawArrays(gl.TRIANGLES, 0, 3);
 		};
 
 		const loop = (now: number) => {
@@ -228,6 +250,7 @@ export function Background() {
 
 		const startLoop = () => {
 			stop();
+			if (!scene) return;
 			if (reducedMotion.matches) {
 				draw(start);
 			} else if (!document.hidden) {
@@ -235,31 +258,59 @@ export function Background() {
 			}
 		};
 
-		const onResize = () => {
-			resize();
-			// Redraw straight away so a paused/static canvas isn't left stretched
-			draw(reducedMotion.matches ? start : performance.now());
+		// Coalesce bursts of size changes into at most one resize per frame
+		const scheduleResize = () => {
+			if (resizeRaf) return;
+			resizeRaf = requestAnimationFrame(() => {
+				resizeRaf = 0;
+				resize();
+				// Redraw straight away so a paused/static canvas isn't left stretched
+				draw(reducedMotion.matches ? start : performance.now());
+			});
 		};
 
 		const onVisibility = () => (document.hidden ? stop() : startLoop());
 
+		const onContextLost = (event: Event) => {
+			// Tell the browser we'll handle restoration, and stop drawing until then
+			event.preventDefault();
+			stop();
+			cancelAnimationFrame(resizeRaf);
+			resizeRaf = 0;
+			scene = null;
+		};
+
+		const onContextRestored = () => {
+			scene = createScene(gl);
+			if (!scene) return;
+			resize();
+			startLoop();
+		};
+
 		resize();
 		startLoop();
 
-		window.addEventListener("resize", onResize);
+		// Also catches DPR changes that come with a resize; the canvas is sized to the
+		// large viewport in CSS, so mobile URL-bar movement doesn't resize it at all
+		const observer = new ResizeObserver(scheduleResize);
+		observer.observe(canvas);
+		window.addEventListener("resize", scheduleResize);
 		document.addEventListener("visibilitychange", onVisibility);
 		reducedMotion.addEventListener("change", startLoop);
+		canvas.addEventListener("webglcontextlost", onContextLost);
+		canvas.addEventListener("webglcontextrestored", onContextRestored);
 
 		return () => {
 			stop();
-			window.removeEventListener("resize", onResize);
+			cancelAnimationFrame(resizeRaf);
+			observer.disconnect();
+			window.removeEventListener("resize", scheduleResize);
 			document.removeEventListener("visibilitychange", onVisibility);
 			reducedMotion.removeEventListener("change", startLoop);
-			gl!.deleteBuffer(buffer);
-			gl!.deleteProgram(program);
-			gl!.deleteShader(vs);
-			gl!.deleteShader(fs);
-			gl!.getExtension("WEBGL_lose_context")?.loseContext();
+			canvas.removeEventListener("webglcontextlost", onContextLost);
+			canvas.removeEventListener("webglcontextrestored", onContextRestored);
+			if (scene) destroyScene(gl, scene);
+			gl.getExtension("WEBGL_lose_context")?.loseContext();
 			canvas.remove();
 		};
 	}, []);

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Background } from "@/components/Background";
 import { site } from "@/lib/content";
+import { theme } from "@/lib/theme";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-	themeColor: "#111111",
+	themeColor: theme.backdrop,
 	colorScheme: "dark",
 };
 

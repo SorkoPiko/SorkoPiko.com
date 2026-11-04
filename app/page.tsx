@@ -4,6 +4,8 @@ import { formatDownloads, getGeodeDownloads } from "@/lib/geode";
 import { CopyButton } from "@/components/CopyButton";
 import { Icon } from "@/components/Icons";
 
+// Must be a literal for Next to read it; kept equal to DOWNLOADS_REVALIDATE in
+// lib/geode.ts (checked by tests/revalidate.test.ts).
 export const revalidate = 86400;
 
 export default async function Home() {
@@ -17,8 +19,8 @@ export default async function Home() {
 				<p className="tagline">{site.tagline}</p>
 			</header>
 
-			<section aria-labelledby="beatline">
-				<h2 className="label">Next up</h2>
+			<section aria-labelledby="next-up">
+				<h2 id="next-up" className="label">Next up</h2>
 				<div className="feature">
 					<Image
 						className="feature-image"
@@ -32,7 +34,7 @@ export default async function Home() {
 					/>
 					<div className="feature-body">
 						<div className="feature-heading">
-							<h3 id="beatline" className="feature-name">{beatline.name}</h3>
+							<h3 className="feature-name">{beatline.name}</h3>
 							<span className="badge">{cta.badge}</span>
 						</div>
 						{cta.link && (
@@ -71,7 +73,7 @@ export default async function Home() {
 					{links.map((link) => (
 						<li key={link.label}>
 							{link.copy ? (
-								<CopyButton text={link.copy}>
+								<CopyButton text={link.copy} label={link.label}>
 									<Icon name={link.icon} />
 									<span>{link.label}</span>
 								</CopyButton>

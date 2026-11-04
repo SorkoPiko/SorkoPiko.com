@@ -2,7 +2,6 @@ export type GameStatus = "coming-soon" | "released";
 
 export interface Game {
 	name: string;
-	pitch: string;
 	status: GameStatus;
 	/** Set once the Steam store page exists; the card only links when this is present. */
 	steamUrl?: string;
@@ -13,7 +12,6 @@ export interface Project {
 	name: string;
 	description: string;
 	url: string;
-	linkLabel: string;
 }
 
 export interface Link {
@@ -35,7 +33,6 @@ export const site = {
 
 export const beatline: Game = {
 	name: "Beatline",
-	pitch: "RHYTHM // PARKOUR",
 	status: "coming-soon",
 	image: {
 		src: "/beatline-banner.png",
@@ -49,14 +46,12 @@ export const senddb: Project = {
 	name: "SendDB",
 	description: "Tracks Geometry Dash level sends. Available as a website, a Discord bot and a Geode mod.",
 	url: "https://senddb.dev",
-	linkLabel: "senddb.dev",
 };
 
 export const geodeMods: Project = {
 	name: "Geode mods",
 	description: "Geometry Dash mods, mostly quality-of-life and utility.",
 	url: "https://geode-sdk.org/mods?developer=sorkopiko",
-	linkLabel: "geode-sdk.org",
 };
 
 export const links: Link[] = [

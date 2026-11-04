@@ -34,7 +34,12 @@ body {
 /* Fixed WebGL backdrop; the container's own colour is the no-WebGL fallback */
 .background {
 	position: fixed;
-	inset: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	/* The large viewport, so showing/hiding a mobile URL bar doesn't resize the canvas */
+	height: 100vh;
+	height: 100lvh;
 	z-index: 0;
 	pointer-events: none;
 	background-color: var(--backdrop);
@@ -110,7 +115,7 @@ button:focus-visible {
 	padding: 1rem 1.25rem;
 }
 
-/* The screenshot already shows the title and pitch, so this stays quiet */
+/* The screenshot already shows the logo and tagline, so this stays quiet */
 .feature-heading {
 	display: flex;
 	flex-wrap: wrap;
@@ -200,6 +205,12 @@ button:focus-visible {
 .link-row:hover,
 .link-row:hover svg {
 	color: var(--accent);
+}
+
+.copy-row {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
 }
 
 .link-handle {
