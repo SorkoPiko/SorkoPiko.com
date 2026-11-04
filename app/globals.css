@@ -2,38 +2,224 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-	z-index: 1;
+:root {
+	color-scheme: dark;
+	--backdrop: #111111;
+	--base: #161618;
+	--primary: #2d2d3a;
+	--accent: #ffe2f4;
+	--edge: #000000;
+	--text: #e8e6e1;
+	--muted: #9a978f;
+	--faint: #5f5d58;
+	--outline: #ffffff0f;
 }
 
-:root {
-	--foreground-rgb: 255, 255, 255;
-	--background-rgb: 0, 0, 0;
+html {
+	background-color: var(--backdrop);
 }
 
 body {
-	color: rgb(var(--foreground-rgb));
-	background-color: rgb(var(--background-rgb));
-	font-family: "Inter", sans-serif;
-	z-index: -1;
+	background-color: var(--backdrop);
+	color: var(--text);
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
 }
 
-.projectcard {
-	width: 600px;
-	min-height: 100px;
+::selection {
+	background: var(--accent);
+	color: var(--backdrop);
 }
 
-#tsparticles {
-	position: absolute;
+/* Fixed WebGL backdrop; the container's own colour is the no-WebGL fallback */
+.background {
+	position: fixed;
 	top: 0;
 	left: 0;
-	bottom: 0;
-	right: 0;
-	padding: 0;
-	margin: 0;
-	z-index: 0; /* if you use -1 you have to set to `"window"` the interactivity.detectsOn property */
+	width: 100%;
+	/* The large viewport, so showing/hiding a mobile URL bar doesn't resize the canvas */
+	height: 100vh;
+	height: 100lvh;
+	z-index: 0;
+	pointer-events: none;
+	background-color: var(--backdrop);
 }
 
-.about {
-	width: 800px;
+.background canvas {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.column {
+	position: relative;
+	z-index: 1;
+	max-width: 65ch;
+	margin: 0 auto;
+	padding: clamp(4rem, 14vh, 9rem) 1.5rem 6rem;
+	line-height: 1.7;
+	font-size: 1rem;
+}
+
+.column > section {
+	margin-top: 4rem;
+}
+
+.intro h1 {
+	font-size: 2rem;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: 1.2;
+}
+
+.tagline {
+	margin-top: 0.25rem;
+	color: var(--muted);
+}
+
+.label {
+	margin-bottom: 1.25rem;
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--faint);
+}
+
+a,
+button {
+	border-radius: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+
+/* Beatline */
+.feature {
+	overflow: hidden;
+	border: 1px solid var(--outline);
+	border-radius: 3px;
+	background-color: rgb(22 22 24 / 0.6);
+}
+
+.feature-image {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.feature-body {
+	padding: 1rem 1.25rem;
+}
+
+/* The screenshot already shows the logo and tagline, so this stays quiet */
+.feature-heading {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem 1rem;
+}
+
+.feature-name {
+	font-weight: 600;
+}
+
+.badge {
+	display: inline-block;
+	padding: 0.1rem 0.5rem;
+	border: 1px solid rgb(255 226 244 / 0.35);
+	border-radius: 2px;
+	font-size: 0.75rem;
+	color: var(--accent);
+}
+
+.feature-link {
+	display: inline-block;
+	margin-top: 0.75rem;
+	text-decoration: underline;
+	text-decoration-color: rgb(255 226 244 / 0.4);
+	text-underline-offset: 4px;
+}
+
+.feature-link:hover {
+	color: var(--accent);
+	text-decoration-color: var(--accent);
+}
+
+/* Projects */
+.projects {
+	display: grid;
+	gap: 1.75rem;
+}
+
+.projects h3 {
+	font-weight: 600;
+}
+
+.projects h3 a {
+	text-decoration: underline;
+	text-decoration-color: var(--faint);
+	text-underline-offset: 4px;
+	transition: color 150ms, text-decoration-color 150ms;
+}
+
+.projects h3 a:hover {
+	color: var(--accent);
+	text-decoration-color: var(--accent);
+}
+
+.projects p {
+	color: var(--muted);
+}
+
+.stat {
+	color: var(--text);
+	white-space: nowrap;
+}
+
+/* Links */
+.links {
+	display: grid;
+	gap: 0.25rem;
+}
+
+.link-row {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.25rem 0;
+	color: var(--text);
+	transition: color 150ms;
+}
+
+.link-row svg {
+	color: var(--muted);
+	flex: none;
+	transition: color 150ms;
+}
+
+.link-row:hover,
+.link-row:hover svg {
+	color: var(--accent);
+}
+
+.copy-row {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.link-handle {
+	color: var(--faint);
+	font-size: 0.875rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: none !important;
+	}
 }
