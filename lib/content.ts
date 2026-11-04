@@ -65,3 +65,20 @@ export const links: Link[] = [
 	{ label: "X", href: "https://x.com/SorkoPiko", icon: "x" },
 	{ label: "Email", href: "mailto:me@sorko.dev", handle: "me@sorko.dev", icon: "email" },
 ];
+
+export interface GameCta {
+	badge: string;
+	/** Only present once there's a store page to link to. */
+	link?: { href: string; label: string };
+}
+
+/** Badge text and optional Steam link for a game card. */
+export function gameCta(game: Pick<Game, "status" | "steamUrl">): GameCta {
+	const released = game.status === "released";
+	return {
+		badge: released ? "Out now on Steam" : "Coming soon to Steam",
+		...(game.steamUrl
+			? { link: { href: game.steamUrl, label: released ? "Get it on Steam" : "Wishlist on Steam" } }
+			: {}),
+	};
+}

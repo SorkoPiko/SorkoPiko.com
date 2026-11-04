@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { beatline, geodeMods, links, senddb, site } from "@/lib/content";
+import { beatline, gameCta, geodeMods, links, senddb, site } from "@/lib/content";
 import { formatDownloads, getGeodeDownloads } from "@/lib/geode";
 import { CopyButton } from "@/components/CopyButton";
 import { Icon } from "@/components/Icons";
@@ -8,7 +8,7 @@ export const revalidate = 86400;
 
 export default async function Home() {
 	const downloads = await getGeodeDownloads();
-	const released = beatline.status === "released";
+	const cta = gameCta(beatline);
 
 	return (
 		<main className="column">
@@ -33,11 +33,11 @@ export default async function Home() {
 					<div className="feature-body">
 						<div className="feature-heading">
 							<h3 id="beatline" className="feature-name">{beatline.name}</h3>
-							<span className="badge">{released ? "Out now on Steam" : "Coming soon to Steam"}</span>
+							<span className="badge">{cta.badge}</span>
 						</div>
-						{beatline.steamUrl && (
-							<a className="feature-link" href={beatline.steamUrl} target="_blank" rel="noopener noreferrer">
-								{released ? "Get it on Steam" : "Wishlist on Steam"}
+						{cta.link && (
+							<a className="feature-link" href={cta.link.href} target="_blank" rel="noopener noreferrer">
+								{cta.link.label}
 							</a>
 						)}
 					</div>
