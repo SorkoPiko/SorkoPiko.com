@@ -6,6 +6,7 @@ export interface Game {
 	status: GameStatus;
 	/** Set once the Steam store page exists; the card only links when this is present. */
 	steamUrl?: string;
+	image: { src: string; width: number; height: number; alt: string };
 }
 
 export interface Project {
@@ -29,13 +30,19 @@ export const site = {
 	name: "SorkoPiko",
 	tagline: "Game developer",
 	description: "SorkoPiko, game developer. Making Beatline, plus SendDB and Geode mods for Geometry Dash.",
-	url: "https://sorkopiko.com",
+	url: "https://www.sorkopiko.com",
 };
 
 export const beatline: Game = {
 	name: "Beatline",
 	pitch: "RHYTHM // PARKOUR",
 	status: "coming-soon",
+	image: {
+		src: "/beatline.jpg",
+		width: 1040,
+		height: 520,
+		alt: "Beatline's main menu: the glowing cyan Beatline title and \"Rhythm // Parkour\" above a wireframe globe on a neon grid.",
+	},
 };
 
 export const senddb: Project = {

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 		description: site.description,
 	},
 	twitter: {
-		card: "summary",
+		card: "summary_large_image",
 		site: "@SorkoPiko",
 		creator: "@SorkoPiko",
 		title: site.name,

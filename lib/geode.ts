@@ -2,7 +2,7 @@ const DEVELOPER = "sorkopiko";
 const API = "https://api.geode-sdk.org/v1/mods";
 const PER_PAGE = 100;
 const MAX_PAGES = 10;
-export const FALLBACK_DOWNLOADS = 181_000;
+export const FALLBACK_DOWNLOADS = 350_000;
 
 interface ModsResponse {
 	payload?: {

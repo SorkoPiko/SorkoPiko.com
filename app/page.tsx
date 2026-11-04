@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { beatline, geodeMods, links, senddb, site } from "@/lib/content";
 import { formatDownloads, getGeodeDownloads } from "@/lib/geode";
 import { CopyButton } from "@/components/CopyButton";
@@ -19,14 +20,26 @@ export default async function Home() {
 			<section aria-labelledby="beatline">
 				<h2 className="label">Next up</h2>
 				<div className="feature">
-					<span className="badge">{released ? "Out now on Steam" : "Coming soon to Steam"}</span>
-					<h3 id="beatline" className="feature-name">{beatline.name}</h3>
-					<p className="pitch">{beatline.pitch}</p>
-					{beatline.steamUrl && (
-						<a className="feature-link" href={beatline.steamUrl} target="_blank" rel="noopener noreferrer">
-							{released ? "Get it on Steam" : "Wishlist on Steam"}
-						</a>
-					)}
+					<Image
+						className="feature-image"
+						src={beatline.image.src}
+						width={beatline.image.width}
+						height={beatline.image.height}
+						alt={beatline.image.alt}
+						sizes="(max-width: 640px) 100vw, 600px"
+						priority
+					/>
+					<div className="feature-body">
+						<div className="feature-heading">
+							<h3 id="beatline" className="feature-name">{beatline.name}</h3>
+							<span className="badge">{released ? "Out now on Steam" : "Coming soon to Steam"}</span>
+						</div>
+						{beatline.steamUrl && (
+							<a className="feature-link" href={beatline.steamUrl} target="_blank" rel="noopener noreferrer">
+								{released ? "Get it on Steam" : "Wishlist on Steam"}
+							</a>
+						)}
+					</div>
 				</div>
 			</section>
 

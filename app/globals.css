@@ -94,37 +94,47 @@ button:focus-visible {
 
 /* Beatline */
 .feature {
-	padding: 1.5rem;
+	overflow: hidden;
 	border: 1px solid var(--outline);
 	border-radius: 3px;
 	background-color: rgb(22 22 24 / 0.6);
 }
 
+.feature-image {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.feature-body {
+	padding: 1rem 1.25rem;
+}
+
+/* The screenshot already shows the title and pitch, so this stays quiet */
+.feature-heading {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem 1rem;
+}
+
+.feature-name {
+	font-weight: 600;
+}
+
 .badge {
 	display: inline-block;
-	padding: 0.1rem 0.6rem;
+	padding: 0.1rem 0.5rem;
 	border: 1px solid rgb(255 226 244 / 0.35);
 	border-radius: 2px;
 	font-size: 0.75rem;
 	color: var(--accent);
 }
 
-.feature-name {
-	margin-top: 0.75rem;
-	font-size: 1.5rem;
-	font-weight: 600;
-	letter-spacing: -0.01em;
-}
-
-.pitch {
-	font-size: 0.8rem;
-	letter-spacing: 0.2em;
-	color: var(--muted);
-}
-
 .feature-link {
 	display: inline-block;
-	margin-top: 1rem;
+	margin-top: 0.75rem;
 	text-decoration: underline;
 	text-decoration-color: rgb(255 226 244 / 0.4);
 	text-underline-offset: 4px;
