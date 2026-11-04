@@ -38,10 +38,10 @@ export const beatline: Game = {
 	pitch: "RHYTHM // PARKOUR",
 	status: "coming-soon",
 	image: {
-		src: "/beatline.jpg",
-		width: 1040,
-		height: 520,
-		alt: "Beatline's main menu: the glowing cyan Beatline title and \"Rhythm // Parkour\" above a wireframe globe on a neon grid.",
+		src: "/beatline-banner.jpg",
+		width: 1600,
+		height: 800,
+		alt: "The glowing cyan Beatline logo and \"Rhythm // Parkour\" above a wireframe globe ringed by a parkour track on a neon grid, between orange light pillars.",
 	},
 };
 
