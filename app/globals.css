@@ -96,7 +96,7 @@ button:focus-visible {
 .feature {
 	padding: 1.5rem;
 	border: 1px solid var(--outline);
-	border-radius: 0.5rem;
+	border-radius: 3px;
 	background-color: rgb(22 22 24 / 0.6);
 }
 
@@ -104,7 +104,7 @@ button:focus-visible {
 	display: inline-block;
 	padding: 0.1rem 0.6rem;
 	border: 1px solid rgb(255 226 244 / 0.35);
-	border-radius: 999px;
+	border-radius: 2px;
 	font-size: 0.75rem;
 	color: var(--accent);
 }
