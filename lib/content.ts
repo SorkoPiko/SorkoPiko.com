@@ -3,6 +3,8 @@ export type GameStatus = "coming-soon" | "released";
 export interface Game {
 	name: string;
 	status: GameStatus;
+	/** The game's own website; the card's image and name link here. */
+	url: string;
 	/** Set once the Steam store page exists; the card only links when this is present. */
 	steamUrl?: string;
 	image: { src: string; width: number; height: number; alt: string };
@@ -34,11 +36,12 @@ export const site = {
 export const beatline: Game = {
 	name: "Beatline",
 	status: "coming-soon",
+	url: "https://beatline.gg",
 	image: {
-		src: "/beatline-banner.png",
+		src: "/beatline-key-art.png",
 		width: 1600,
 		height: 800,
-		alt: "The glowing cyan Beatline logo and \"Rhythm // Parkour\" above a wireframe globe ringed by a parkour track on a neon grid, between orange light pillars.",
+		alt: "Beatline key art: the glowing cyan Beatline logo and \"Rhythm // Parkour\" beside a neon wireframe globe with an orange ring, on a dark grid between tall orange light beams.",
 	},
 };
 

@@ -22,19 +22,24 @@ export default async function Home() {
 			<section aria-labelledby="next-up">
 				<h2 id="next-up" className="label">Next up</h2>
 				<div className="feature">
-					<Image
-						className="feature-image"
-						src={beatline.image.src}
-						width={beatline.image.width}
-						height={beatline.image.height}
-						alt={beatline.image.alt}
-						sizes="(max-width: 680px) calc(100vw - 3rem), 610px"
-						quality={90}
-						priority
-					/>
+					{/* Same link as the name below; skipped by Tab so keyboard users meet it once */}
+					<a href={beatline.url} target="_blank" rel="noopener noreferrer" tabIndex={-1}>
+						<Image
+							className="feature-image"
+							src={beatline.image.src}
+							width={beatline.image.width}
+							height={beatline.image.height}
+							alt={beatline.image.alt}
+							sizes="(max-width: 680px) calc(100vw - 3rem), 610px"
+							quality={90}
+							priority
+						/>
+					</a>
 					<div className="feature-body">
 						<div className="feature-heading">
-							<h3 className="feature-name">{beatline.name}</h3>
+							<h3 className="feature-name">
+								<a href={beatline.url} target="_blank" rel="noopener noreferrer">{beatline.name}</a>
+							</h3>
 							<span className="badge">{cta.badge}</span>
 						</div>
 						{cta.link && (
