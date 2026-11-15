@@ -160,14 +160,16 @@ button:focus-visible {
 	font-weight: 600;
 }
 
-.projects h3 a {
+.projects h3 a,
+.feature-name a {
 	text-decoration: underline;
 	text-decoration-color: var(--faint);
 	text-underline-offset: 4px;
 	transition: color 150ms, text-decoration-color 150ms;
 }
 
-.projects h3 a:hover {
+.projects h3 a:hover,
+.feature-name a:hover {
 	color: var(--accent);
 	text-decoration-color: var(--accent);
 }
