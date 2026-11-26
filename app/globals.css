@@ -101,8 +101,9 @@ button:focus-visible {
 .feature {
 	overflow: hidden;
 	border: 1px solid var(--outline);
-	border-radius: 3px;
+	border-radius: 5px;
 	background-color: rgb(22 22 24 / 0.6);
+	border-left: 4px solid var(--faint);
 }
 
 .feature-image {
@@ -165,7 +166,9 @@ button:focus-visible {
 	text-decoration: underline;
 	text-decoration-color: var(--faint);
 	text-underline-offset: 4px;
-	transition: color 150ms, text-decoration-color 150ms;
+	transition:
+		color 150ms,
+		text-decoration-color 150ms;
 }
 
 .projects h3 a:hover,
@@ -205,14 +208,19 @@ button:focus-visible {
 }
 
 .link-row:hover,
-.link-row:hover svg {
-	color: var(--accent);
+.link-row:hover svg,
+.copy-row:hover,
+.copy-row:hover .link-row,
+.copy-row:hover .link-row svg {
+	color: var(--accent) !important;
 }
 
 .copy-row {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.75rem;
+	user-select: none;
+	cursor: pointer;
 }
 
 .link-handle {

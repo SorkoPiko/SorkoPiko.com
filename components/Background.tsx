@@ -6,8 +6,9 @@ import { useEffect, useRef } from "react";
 // reactivity and the hex pattern, tuned down to sit behind text.
 
 /** Render resolution relative to devicePixelRatio; the canvas is CSS-upscaled. */
-const RESOLUTION_SCALE = 0.5;
-const FRAME_INTERVAL = 1000 / 30;
+// Upscaling is wild lmao. Render the whole shader at 60fps like a real man.
+const RESOLUTION_SCALE = 1;
+const FRAME_INTERVAL = 1000 / 60;
 
 const VERTEX_SHADER = `
 attribute vec2 position;
