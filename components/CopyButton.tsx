@@ -18,9 +18,14 @@ export function CopyButton({ text, label, children }: { text: string; label: str
 		timer.current = setTimeout(() => setResult(null), RESET_MS[next]);
 	};
 
+	const copyUnlessSelectingText = () => {
+		if (window.getSelection()?.toString()) return;
+		copy();
+	};
+
 	return (
-		<span className="copy-row">
-			<button type="button" onClick={copy} className="link-row" aria-label={`Copy ${label} handle ${text}`}>
+		<span className="copy-row" onClick={copyUnlessSelectingText}>
+			<button type="button" className="link-row" aria-label={`Copy ${label} handle ${text}`}>
 				{children}
 			</button>
 			{/* Outside the button so it isn't part of the button's name, and so the handle can be selected by hand */}
